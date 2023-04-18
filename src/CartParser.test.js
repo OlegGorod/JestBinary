@@ -92,8 +92,8 @@ describe('CartParser - unit tests', () => {
 		const expectedErrors = [
 			{
 				type: parser.ErrorType.ROW,
-				rowIndex: 1,
-				columnIndex: -1,
+				row: 1,
+				column: -1,
 				message: 'Expected row to have 3 cells but received 2.',
 			},
 		];
@@ -101,6 +101,7 @@ describe('CartParser - unit tests', () => {
 		const actualErrors = parser.validate(invalidFile)
 
 		expect(actualErrors).toHaveLength(expectedErrors.length)
+		expect(actualErrors).toEqual(expectedErrors)
 	})
 
 	test('function validate() check if some of cells have incorrect data type', () => {
@@ -110,15 +111,16 @@ describe('CartParser - unit tests', () => {
 		const expectedErrors = [
 			{
 				type: parser.ErrorType.CELL,
-				rowIndex: 1,
-				columnIndex: 1,
+				row: 1,
+				column: 1,
 				message: 'Expected cell to be a positive number but received "hello world".',
 			},
 		];
 
 		const actualErrors = parser.validate(invalidFile)
 
-		expect(parser.validate(invalidFile)).toHaveLength(expectedErrors.length)
+		expect(actualErrors).toHaveLength(expectedErrors.length)
+		expect(actualErrors).toEqual(expectedErrors)
 	})
 
 	test('should throw an error if file doesn"t exist', () => {
